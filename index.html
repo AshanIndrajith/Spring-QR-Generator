@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Generator</title>
+
+    <style>
+        .container{
+         
+
+            background-color: rgb(143, 143, 143);
+            padding: 100px;
+            padding-left: 500px;
+
+        }
+
+        .qrCodeImage{
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+    <h1>QR Code Generator</h1>
+    <input type="text" id="qrContent" placeholder="Enter QR Code content" />
+    <button onclick="generateQRCode()">Generate QR Code</button>
+    <br>
+    <div id="qrCodeImage">
+        <!-- The QR code image will be displayhereed  -->
+    </div>
+    
+    <a id="downloadLink" style="display:none;">Download QR Code</a> <!-- Download link initially hidden -->
+
+
+</div>
+    
+    <script>
+        function generateQRCode() {
+            var content = document.getElementById('qrContent').value;
+            var imgElement = document.createElement('img');
+            imgElement.src = 'http://localhost:8080/qr/qrcode/' + content;
+            
+            // Clear previous content and display the QR code image
+            var qrCodeContainer = document.getElementById('qrCodeImage');
+            qrCodeContainer.innerHTML = '';
+            qrCodeContainer.appendChild(imgElement);
+            
+            // Display the download link
+            var downloadLink = document.getElementById('downloadLink');
+            downloadLink.style.display = 'block';
+            downloadLink.href = imgElement.src;
+            
+            // Suggest a specific file name for the downloaded image
+            downloadLink.download = 'qr_code.png';
+        }
+    </script>
+</body>
+</html>
